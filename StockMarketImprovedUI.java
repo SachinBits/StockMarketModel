@@ -82,8 +82,12 @@ public class StockMarketImprovedUI extends Application {
         tabPane.getTabs().addAll(tradingTab, analyticsTab);
         root.setCenter(tabPane);
 
+
         // Set the scene
         Scene scene = new Scene(root, 1000, 700);
+        scene.getStylesheets().add("file:/C:/Users/sachi/IdeaProjects/Stocks/src/main/java/com/example/stocks/style.css");
+
+
         primaryStage.setTitle("Stock Market Simulator");
         primaryStage.setScene(scene);
         primaryStage.show();
