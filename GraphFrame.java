@@ -11,14 +11,17 @@ public class GraphFrame {
 //        Thread.sleep(2000);
 //
 //        Graphframe.setLayout(new BorderLayout(10,10));
-//        Graphframe.setBounds(500,500,500,500);
+//        Graphframe.setBounds(1000,1000,1000,1000);
 //        Graphframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        Graphframe.add(graph,BorderLayout.CENTER);
 //        Graphframe.setResizable(true);
 //        Graphframe.setVisible((true));
+
+
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new JFrame("Graphs");
             Graphs graphs = new Graphs();
+            graphs.setBounds(1000,1000,1000,1000);
             frame.add(graphs);
             frame.pack();
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
