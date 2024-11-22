@@ -1,32 +1,19 @@
+
 package App;
 
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Graphs extends JPanel {
-    public static double[] Apple = new double[15];
-    public static double[] Microsoft=new double[15];
-    public static double[] Google=new double[15];
-    public static double[] Lenovo=new double[15];
-    public static double[] Philips=new double[15];
+public class GraphsMain extends JPanel {
     private static final int maxPoints = 15;
+    public double[] b = new double[15];
     JPanel graph;
 
-    public Graphs() {
-        graph = this;
-        graph.setPreferredSize(new Dimension(300,300));
-    }
-
-    public void Gen(ArrayList<Double> a, double[] b) {
-
-
-
-
-        Timer timer = new Timer();
+     GraphsMain(ArrayList<Double> a) {
+        java.util.Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
 
             @Override
@@ -36,10 +23,8 @@ public class Graphs extends JPanel {
 
                 for (int i = 0; i < values.length; i++) {
                     b[i] = values[i];
+                    System.out.println(b[i]);
                 }
-//                for (int i = 0; i < Apple.length; i++) {
-//                    System.out.println("run" + Apple[i]);
-//                }
             }
         }, 0, 100);
     }
@@ -63,9 +48,9 @@ public class Graphs extends JPanel {
 
         for (int i = 0; i < maxPoints - 1; i++) {
             int x1 = 50 + i * pointSpacing;
-            int y1 = originY - (int) (Apple[i] * 2); // Scale the value for display
+            int y1 = originY - (int) (b[i] * 2); // Scale the value for display
             int x2 = 50 + (i + 1) * pointSpacing;
-            int y2 = originY - (int) (Apple[i + 1] * 2);
+            int y2 = originY - (int) (b[i + 1] * 2);
             g2d.drawLine(x1, y1, x2, y2);
         }
         int y1;
@@ -79,27 +64,14 @@ public class Graphs extends JPanel {
             int size=a.size();
             int index=size-15+i;
             array[i]=(index>=0)? a.get(index):100;
+//            System.out.println(a.get(index));
         }
         return array;
     }
     public double getlatestvalue(double[] a){
         int size=a.length-1;
         double latestvalue=a[size];
+//        System.out.println(latestvalue);
         return latestvalue;
-    }
-    public void start()      {
-        Graphs generate=new Graphs();
-
-        Stock apple = new Stock("Apple",100);
-        Stock microsoft = new Stock("Apple",100);
-        Stock lenovo = new Stock("Apple",100);
-        Stock philips = new Stock("Apple",100);
-        Stock google = new Stock("Apple",100);
-
-        generate.Gen(apple.stock_history,Apple);
-        generate.Gen(microsoft.stock_history,Microsoft);
-        generate.Gen(lenovo.stock_history,Lenovo);
-        generate.Gen(philips.stock_history,Philips);
-        generate.Gen(google.stock_history,Google);
     }
 }
