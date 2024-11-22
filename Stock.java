@@ -47,9 +47,4 @@ public class Stock {
         stock_history.add(nextValue(stock_history.get(lengthofarray-1)));
         stock_history.remove(0);
     }
-
-
-
-
-
 }

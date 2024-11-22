@@ -32,8 +32,4 @@ public class Heading extends JPanel{
     public JPanel getpanel(){
         return Header;
     }
-
-
-
-
 }

@@ -10,7 +10,7 @@ import java.util.TimerTask;
 public class GraphsMain extends JPanel {
     private static final int maxPoints = 15;
     public double[] b = new double[15];
-    JPanel graph;
+
 
      GraphsMain(ArrayList<Double> a) {
         java.util.Timer timer = new Timer();
@@ -23,8 +23,9 @@ public class GraphsMain extends JPanel {
 
                 for (int i = 0; i < values.length; i++) {
                     b[i] = values[i];
-                    System.out.println(b[i]);
+//                    System.out.println(b[i]);
                 }
+                SwingUtilities.invokeLater(() -> repaint());
             }
         }, 0, 100);
     }
@@ -37,7 +38,7 @@ public class GraphsMain extends JPanel {
         g2d.fillRect(0, 0, getWidth(), getHeight());
         g2d.setColor(Color.BLACK);
 
-        int originY = getHeight() / 2;
+        int originY = getHeight() ;
         g2d.drawLine(50, originY, getWidth() - 50, originY); // X-axis
         g2d.drawLine(50, 50, 50, getHeight() - 50); // Y-axis
 
@@ -55,7 +56,7 @@ public class GraphsMain extends JPanel {
         }
         int y1;
         int y2;
-        graph.repaint();
+
     }
 
     public double[] getlast15values(ArrayList<Double> a){
@@ -73,5 +74,8 @@ public class GraphsMain extends JPanel {
         double latestvalue=a[size];
 //        System.out.println(latestvalue);
         return latestvalue;
+    }
+    public JPanel getJPanel(){
+         return this;
     }
 }

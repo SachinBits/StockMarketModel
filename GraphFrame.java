@@ -4,18 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GraphFrame {
-    GraphFrame() {
+    GraphFrame(GraphsMain a) {
 
-//        SwingUtilities.invokeLater(() -> {
-//            JFrame frame = new JFrame("Graphs");
-//
-//            graphs.setBounds(1000,1000,1000,1000);
-//            frame.add(graphs);
-//            frame.pack();
-//            frame.setVisible(true);
-//
-//
-//        });
-
-    }
+        JFrame frame = new JFrame("Graphs");
+        frame.setLayout(new BorderLayout());
+        frame.setPreferredSize(new Dimension(250,500));
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        JPanel graphs =a.getJPanel();
+        graphs.setPreferredSize(new Dimension(250,200));
+        frame.add(graphs);
+        frame.pack();
+        frame.setVisible(true);
+    };
 }

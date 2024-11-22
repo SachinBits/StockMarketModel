@@ -3,14 +3,13 @@ package App;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Arrays;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Listing extends JPanel  {
+
     JPanel List;
     GraphFrame graphFrame;
     private static DefaultTableModel tablemodel;
@@ -60,7 +59,7 @@ public class Listing extends JPanel  {
 
 
             }
-        }, 0, 1800);
+        }, 0, 100);
 
         Table.addMouseListener(new MouseListener() {
             @Override
@@ -95,10 +94,28 @@ public class Listing extends JPanel  {
 
     public void opengraph(int i){
         try{
-            graphFrame=new GraphFrame();
+            switch (i) {
+                case 0:
+                    graphFrame = new GraphFrame(generate_apple);
+                    break;
+                case 1:
+                    graphFrame = new GraphFrame(generate_microsoft);
+                    break;
+                case 2:
+                    graphFrame = new GraphFrame(generate_lenovo);
+                    break;
+                case 3:
+                    graphFrame = new GraphFrame(generate_philips);
+                    break;
+                case 4:
+                    graphFrame = new GraphFrame(generate_google);
+                    break;
+                default:
+
+            }
         }
         catch(Exception e){
-            System.out.println("Yep thats the limit");
+            System.out.println("Yep that's the limit");
         }
     }
 
@@ -108,17 +125,11 @@ public class Listing extends JPanel  {
         tablemodel.setValueAt(generate_lenovo.getlatestvalue(generate_lenovo.b),2,2);
         tablemodel.setValueAt(generate_philips.getlatestvalue(generate_philips.b),3,2);
         tablemodel.setValueAt(generate_google.getlatestvalue(generate_google.b),4,2);
-//        tablemodel.setValueAt(g1.getlatestvalue(Graphs.Microsoft),1,2);
-//        tablemodel.setValueAt(g1.getlatestvalue(Graphs.Philips),2,2);
-//        tablemodel.setValueAt(g1.getlatestvalue(Graphs.Google),3,2);
-//        tablemodel.setValueAt(g1.getlatestvalue(Graphs.Lenovo),4,2);
-
 
     }
     public JPanel getpanel()
     {
         return List;
     }
-
 
 }
