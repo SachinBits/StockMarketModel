@@ -12,66 +12,83 @@ import static App.Transaction.Sell;
 public class Buying {
     private int number;
     private String company;
-    private Timer timer;
-    private ActionEvent e;
+    Timer timer;
+    double Buying_price;
+    double Current_Price;
+    double Difference;
 
-//    DefaultTableModel tablemodel;
-//
-//    Buying(){
-//        String[] columns={"No","Stock","Quantity","Buying Price","Current Price","Difference"};
-//        Object[][] data={{1,;}};
-//    }
-    public Buying(int no, String company, ActionEvent e) {
+    public Buying(int a, String company) {
         this.company = company;
-        this.number = no; // Initialize the quantity
-        this.timer = new Timer();
-        this.e=e;
+        this.number = a; // Initialize the quantity
 
+    }
 
-        if(e.getSource()==Buy){
-            this.number=+no;
+    public void gostuff(int no){
+
+        number+=no;
+        if (timer != null) {
+            timer.cancel();
         }
-        else if(e.getSource()==Sell){
-            this.number=-no;
-        }
+
+        timer=new Timer();
 
 
-
-            timer=new Timer();
             if (company.equalsIgnoreCase("Apple")) {
-                getportfolio(timer, number, company, Listing.generate_apple, Listing.generate_apple.b);
+                getportfolio(timer, company, Listing.generate_apple, Listing.generate_apple.b);
             }
 
             else if(company.equalsIgnoreCase("Microsoft")) {
-                getportfolio(timer, number, company, Listing.generate_microsoft, Listing.generate_microsoft.b);
+                getportfolio(timer, company, Listing.generate_microsoft, Listing.generate_microsoft.b);
             }
             else if(company.equalsIgnoreCase("Lenovo")) {
-                getportfolio(timer, number, company, Listing.generate_lenovo, Listing.generate_lenovo.b);
+                getportfolio(timer, company, Listing.generate_lenovo, Listing.generate_lenovo.b);
             }
             else if(company.equalsIgnoreCase("Philips")) {
-                getportfolio(timer, number, company, Listing.generate_philips, Listing.generate_philips.b);
+                getportfolio(timer, company, Listing.generate_philips, Listing.generate_philips.b);
             }
             else if(company.equalsIgnoreCase("Google")) {
-                getportfolio(timer, number, company, Listing.generate_google, Listing.generate_google.b);
+                getportfolio(timer, company, Listing.generate_google, Listing.generate_google.b);
             }
 
     }
-    public void getportfolio(Timer timer,int number ,String company,GraphsMain a,double[] b){
-        double Buying_price = a.getlatestvalue(b);
 
-        System.out.println(Buying_price);
+
+    public void getportfolio(Timer timer ,String company,GraphsMain a,double[] b){
+        Buying_price = a.getlatestvalue(b);
+        //        System.out.println(Buying_price);
 
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
 
-                double Current_Price = a.getlatestvalue(b);
-                double Difference = Buying_price - Current_Price;
-                System.out.println("Company:" + company + " Buying Price:" + Buying_price + " Current Price:" + Current_Price
-                        + " Difference:" + Difference+"number:"+number);
+                Current_Price = a.getlatestvalue(b);
+                Difference = Buying_price - Current_Price;
+
+                if (number == 0) {
+                    timer.cancel();
+                    System.out.println("All stocks sold for " + company + ". Timer stopped.");
+                }
             }
 
-        },0,200);
+
+        },0,300);
+    }
+    public double getBuying_price(){
+        return Buying_price;
+    }
+
+    public double getCurrent_Price() {
+        return Current_Price;
+    }
+
+    public int getnumber(){
+        return number;
+    }
+    public String getCompany(){
+        return company;
+    }
+    public double getDifference(){
+        return Difference;
     }
 }
 
