@@ -11,6 +11,7 @@ import java.util.TimerTask;
 public class PortFolio_table extends JPanel{
     DefaultTableModel tableModel;
     JPanel table1;
+    JTable table;
 
     public PortFolio_table() {
 
@@ -23,18 +24,25 @@ public class PortFolio_table extends JPanel{
                 return false;
             }
         };
-        table1=new JPanel();
-        JTable table=new JTable(tableModel);
+        table=new JTable(tableModel);
         JScrollPane scrollPane=new JScrollPane(table);
+
+        table1=new JPanel();
+
+
         table1.setLayout(new BorderLayout());
-        table.getColumnModel().getColumn(0).setPreferredWidth(250);
-        table.getColumnModel().getColumn(1).setPreferredWidth(4500);
-        table.getColumnModel().getColumn(2).setPreferredWidth(4500);
-        table.getColumnModel().getColumn(3).setPreferredWidth(4500);
-        table.getColumnModel().getColumn(4).setPreferredWidth(4500);
-        table.getColumnModel().getColumn(5).setPreferredWidth(4500);
+
+
+
+
+        settablewidth(0,350);
+        for(int i=1;i<table.getColumnCount();i++){
+            settablewidth(i,2500);
+        }
+
         table1.setBackground(Color.GRAY);
-        table1.setPreferredSize(new Dimension(10000, 150));
+        table1.setPreferredSize(new Dimension(1000, 150));
+        table.setPreferredSize(new Dimension(1000,1000));
 
         table1.add(scrollPane, BorderLayout.CENTER);
 
@@ -47,7 +55,7 @@ public class PortFolio_table extends JPanel{
                 updateTablefornull();
 
             }
-        }, 0, 200);
+        }, 0, 300);
     }
 
     // Get initial table data(can be automated later have to look into it)
@@ -111,6 +119,9 @@ public class PortFolio_table extends JPanel{
     }
     public JPanel getPortfoliotable(){
         return table1;
+    }
+    public void settablewidth(int column,int width){
+        table.getColumnModel().getColumn(column).setPreferredWidth(width);
     }
 
 

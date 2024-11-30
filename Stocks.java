@@ -22,7 +22,6 @@ public class Stocks{
         Transaction transaction=new Transaction();
         PortFolio_table portFolioTable=new PortFolio_table();
 
-//        f1.add(portfolio.getpanel(),BorderLayout.SOUTH);
         f1.add(portFolioTable.getPortfoliotable(),BorderLayout.SOUTH);
         f1.add(List.getpanel(), BorderLayout.WEST);
         f1.add(transaction.getpanel(),BorderLayout.EAST);

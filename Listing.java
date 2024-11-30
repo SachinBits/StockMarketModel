@@ -2,9 +2,11 @@ package App;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,7 +14,7 @@ public class Listing extends JPanel  {
 
     JPanel List;
     GraphFrame graphFrame;
-    private static DefaultTableModel tablemodel;
+    private DefaultTableModel tablemodel;
     static Stock apple = new Stock("Apple",100);
     static Stock microsoft = new Stock("Microsoft",100);
     static Stock lenovo = new Stock("Lenovo",100);
@@ -23,6 +25,7 @@ public class Listing extends JPanel  {
     static GraphsMain generate_lenovo=new GraphsMain(lenovo.stock_history);
     static GraphsMain generate_philips=new GraphsMain(philips.stock_history);
     static GraphsMain generate_google=new GraphsMain(google.stock_history);
+    public JTable Table;
 
     Listing() {
 
@@ -30,9 +33,9 @@ public class Listing extends JPanel  {
 
         Object[][] data = {{1, "Apple", 0.0},
                 {2, "Microsoft", 0.0},
-                {3, "Philips", 0.0},
-                {4, "Google", 0.0},
-                {5, "Lenovo", 0.0}};
+                {3, "Lenovo", 0.0},
+                {4, "Philips", 0.0},
+                {5, "Google", 0.0}};
 
         tablemodel = new DefaultTableModel(data, columns) {
             @Override
@@ -41,13 +44,19 @@ public class Listing extends JPanel  {
             }
         };
         List = new JPanel();
+        List.setLayout(new BorderLayout());
 
-        JTable Table = new JTable(tablemodel);
+        Table = new JTable(tablemodel);
+
         JScrollPane scrollPane = new JScrollPane(Table);
+        settablewidth(0,200);
+        for(int i=1;i<Table.getColumnCount();i++){
+            settablewidth(i,400);
+        }
+        Table.setPreferredSize(new Dimension(850,1000));
         List.setBackground(Color.blue);
         List.setPreferredSize(new Dimension(850, 30));
         List.add(scrollPane, BorderLayout.CENTER);
-
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -119,7 +128,7 @@ public class Listing extends JPanel  {
         }
     }
 
-    public static void updatetable(){
+    public void updatetable(){
         tablemodel.setValueAt(generate_apple.getlatestvalue(generate_apple.b),0,2);
         tablemodel.setValueAt(generate_microsoft.getlatestvalue(generate_microsoft.b),1,2);
         tablemodel.setValueAt(generate_lenovo.getlatestvalue(generate_lenovo.b),2,2);
@@ -130,6 +139,9 @@ public class Listing extends JPanel  {
     public JPanel getpanel()
     {
         return List;
+    }
+    public void settablewidth(int column,int width){
+        Table.getColumnModel().getColumn(column).setPreferredWidth(width);
     }
 
 }

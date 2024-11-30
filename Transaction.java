@@ -16,8 +16,7 @@ public class Transaction extends JPanel implements ActionListener {
     static Buying lenovo = new Buying(0, "Lenovo");
     static Buying philips = new Buying(0, "Philips");
     static Buying google = new Buying(0, "Google");
-
-
+    double cost_of_stocks;
 
     Transaction() {
 
@@ -25,7 +24,6 @@ public class Transaction extends JPanel implements ActionListener {
         CompanyList = new JComboBox(Company_List);
 
         Buy.setBounds(50, 50, 50, 50);
-
         Sell.setBounds(50, 50, 50, 50);
 
         Buy.addActionListener(this);
@@ -34,7 +32,7 @@ public class Transaction extends JPanel implements ActionListener {
 
 
         transaction = new JPanel();
-
+        Stocks_Num.setPreferredSize(new Dimension(100,30));
 
         transaction.setBackground(Color.GRAY);
         transaction.setPreferredSize(new Dimension(850, 30));
@@ -55,73 +53,78 @@ public class Transaction extends JPanel implements ActionListener {
         String company = CompanyList.getSelectedItem().toString();
 
 
-        if (e.getSource() == Buy) {
+
+        if (e.getSource() == Buy ) {
             switch (company) {
                 case ("Apple"):
-                    apple.gostuff(number);
+                    if(check_Valid_transaction(number,Listing.generate_apple,Listing.generate_apple.b)) {
+                        apple.trade(number, "Buy");
+                    }
                     break;
-
                 case ("Microsoft"):
-                    microsoft.gostuff(number);
+                    if(check_Valid_transaction(number,Listing.generate_microsoft,Listing.generate_microsoft.b)) {
+                        microsoft.trade(number, "Buy");
+                    }
                     break;
                 case ("Lenovo"):
-                    lenovo.gostuff(number);
+                    if(check_Valid_transaction(number,Listing.generate_lenovo,Listing.generate_lenovo.b)) {
+                        lenovo.trade(number, "Buy");
+                    }
                     break;
                 case ("Philips"):
-                    philips.gostuff(number);
+                    if(check_Valid_transaction(number,Listing.generate_philips,Listing.generate_philips.b)) {
+                        philips.trade(number, "Buy");
+                    }
                     break;
                 case ("Google"):
-                    google.gostuff(number);
+                    if(check_Valid_transaction(number,Listing.generate_google,Listing.generate_google.b)) {
+                        google.trade(number, "Buy");
+                    }
                     break;
             }
-
         }
         else if (e.getSource() == Sell) {
             switch (company) {
                 case ("Apple"):
-                    if(apple.getnumber()>0){
-
-                        apple.gostuff(-number);
-
+                    if(apple.getnumber()>=number){
+                        apple.trade(-number, "Sell");
                     }
-
                     break;
-
                 case ("Microsoft"):
-                    if(microsoft.getnumber()>0){
-                        microsoft.gostuff(-number);
-
+                    if(microsoft.getnumber()>=number){
+                        microsoft.trade(-number, "Sell");
                     }
-
                     break;
                 case ("Lenovo"):
-                    if(lenovo.getnumber()>0){
-                        lenovo.gostuff(-number);
+                    if(lenovo.getnumber()>=number){
+                        lenovo.trade(-number, "Sell");
                     }
-
                     break;
                 case ("Philips"):
-                    if(philips.getnumber()>0){
-                    philips.gostuff(-number);
-
+                    if(philips.getnumber()>=number){
+                    philips.trade(-number,"Sell");
                     }
-
                     break;
                 case ("Google"):
-                    if(google.getnumber()>0){
-                        google.gostuff(-number);
-
+                    if(google.getnumber()>=number){
+                        google.trade(-number, "Sell");
                     }
-
                     break;
             }
-
-
         }
-
-
-
-
     }
+    public boolean check_Valid_transaction(int number,GraphsMain func,double[] og_array){
+        cost_of_stocks = number * func.getlatestvalue(og_array);
+        if(Buying.Balance>=cost_of_stocks){
+
+            return true;
+        }
+        else {
+            JOptionPane.showMessageDialog(this,"Insufficient Balance");
+            return false;
+        }
+    }
+
+
 }
 
