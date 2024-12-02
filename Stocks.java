@@ -3,43 +3,40 @@ package App;
 import javax.swing.*;
 import java.awt.*;
 
-public class Stocks{
-
+public class Stocks {
     public static void main(String... args) {
-        JFrame Main=new JFrame();
+        JFrame Main = new JFrame();
         Main.setResizable(true);
-        JPanel f1=new JPanel();
-        JPanel f2= new JPanel();
-        Main.setLayout(new BorderLayout(100,100));
-        Main.setBounds(500,500,1000,500);
+        Main.setLayout(new BorderLayout(100, 100));
+        Main.setBounds(500, 500, 1000, 500);
         Main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f1.setLayout(new BorderLayout(10,10));
-        f1.setBounds(500,500,500,500);
 
-        f2.setLayout(new BorderLayout(10,10));
-        f2.setBounds(500,500,500,500);
+        JTabbedPane tabbedPane = new JTabbedPane();
 
-        JTabbedPane tabbedpane=new JTabbedPane();
+        PortFolio portfolio = new PortFolio();
+        Heading header = new Heading();
+        Listing listing = new Listing();
+        PortFolio_table portfolioTable = new PortFolio_table();
+        Analytics analytics = new Analytics();
+        TransactionHistory transactionHistory = new TransactionHistory();
+        Transaction transaction = new Transaction(transactionHistory);
 
-        PortFolio portfolio=new PortFolio();
-        Heading Header=new Heading();
-        Listing List=new   Listing();
-        Transaction transaction=new Transaction();
-        PortFolio_table portFolioTable=new PortFolio_table();
-        Analytics analytics=new Analytics();
         analytics.leaderboard();
 
-        f1.add(portFolioTable.getPortfoliotable(),BorderLayout.SOUTH);
-        f1.add(List.getpanel(), BorderLayout.WEST);
-        f1.add(transaction.getpanel(),BorderLayout.EAST);
-        f1.add(Header.getpanel(),BorderLayout.NORTH);
+        JPanel tradingPanel = new JPanel(new BorderLayout());
+        tradingPanel.add(portfolioTable.getPortfoliotable(), BorderLayout.SOUTH);
+        tradingPanel.add(listing.getpanel(), BorderLayout.WEST);
+        tradingPanel.add(transaction.getpanel(), BorderLayout.EAST);
+        tradingPanel.add(header.getpanel(), BorderLayout.NORTH);
 
-        f2.add(analytics.getPanel(),BorderLayout.WEST);
+        JPanel analyticsPanel = new JPanel(new BorderLayout());
+        analyticsPanel.add(analytics.getPanel(), BorderLayout.WEST);
 
-        tabbedpane.add("Trading",f1);
-        tabbedpane.add("Analytics",f2);
+        tabbedPane.add("Trading", tradingPanel);
+        tabbedPane.add("Analytics", analyticsPanel);
+        tabbedPane.add("Transaction History", transactionHistory.getPanel());
 
-        Main.add(tabbedpane);
+        Main.add(tabbedPane);
         Main.setVisible(true);
     }
 }
