@@ -36,7 +36,7 @@ public class Analytics {
         PortFolio_table tb=new PortFolio_table();
         tb.setrowwidth(table2,40);
 
-        table2.setPreferredSize(new Dimension(100,300));
+        table2.setPreferredSize(new Dimension(100,1000));
         JScrollPane scrollPane2=new JScrollPane(table2);
         analytics=new JPanel();
         analytics.setLayout((new BorderLayout()));

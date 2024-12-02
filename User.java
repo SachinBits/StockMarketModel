@@ -61,7 +61,6 @@ public class User {
         }
     }
     public boolean sellStock(Stock stock, int amount) {
-        double difference;
         if(ownedStocks.containsKey(stock)) {
             if(ownedStocks.get(stock).quantity >= amount) {
                 ownedStocks.put(stock, new StockDetails(ownedStocks.get(stock).quantity-amount,

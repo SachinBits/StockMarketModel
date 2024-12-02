@@ -15,14 +15,14 @@ public class Transaction extends JPanel implements ActionListener {
     private TransactionHistory transactionHistory; // Reference to the TransactionHistory
 
     public Transaction(TransactionHistory transactionHistory) {
-        this.transactionHistory = transactionHistory; // Pass the TransactionHistory instance
+        this.transactionHistory = transactionHistory;
 
         String[] Company_List = {"Apple", "Microsoft", "Philips", "Google", "Lenovo"};
         CompanyList = new JComboBox<>(Company_List);
         CompanyList.setBounds(250, 300, 500, 50);
 
-        Buy.setBounds(200, 50, 200, 50);
-        Sell.setBounds(400, 50, 200, 50);
+        Buy.setBounds(200, 100, 400, 100);
+        Sell.setBounds(400, 100, 400, 100);
 
         Buy.addActionListener(this);
         Sell.addActionListener(this);

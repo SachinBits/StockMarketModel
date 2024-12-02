@@ -28,9 +28,9 @@ public class Stock {
     double nextValue(double currentPrice) {
         Random rand =new Random();
         int percent = rand.nextInt(1, 15);
-        if(percent==1) {
+        if(percent==1 ) {
             double priceChange = rand.nextDouble(-.5, .5);
-            //createnews(priceChange);
+            createnews(priceChange);
             return currentPrice+(currentPrice*priceChange);
         }
         else {
@@ -55,10 +55,10 @@ public class Stock {
     public void createnews(double priceChange){
         o++;
         if(o>2) {
-            if (priceChange > 0.05) {
+            if (priceChange > 0.2) {
                 Random_News randomNews = new Random_News();
                 randomNews.positive_news(name);
-            } else if (priceChange < -0.05) {
+            } else if (priceChange < -0.2) {
                 Random_News randomNews = new Random_News();
                 randomNews.negative_news(name);
             }

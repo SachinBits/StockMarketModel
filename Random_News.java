@@ -39,8 +39,8 @@ public class Random_News {
 
         JOptionPane optionPane=new JOptionPane(pos_label);
         JDialog dialog=optionPane.createDialog("Stock Increase");
-        dialog.setSize(1000,200);
-        dialog.setLocation(1000,800);
+        dialog.setSize(850,200);
+        dialog.setLocation(850,600);
 
         dialog.setVisible(true);
 
@@ -69,7 +69,10 @@ public class Random_News {
         JLabel neg_label=new JLabel(news);
         JOptionPane optionPane=new JOptionPane(neg_label);
         JDialog dialog=optionPane.createDialog("Stock Decrease");
-        dialog.setLocation(1000,500);
+
+        dialog.setSize(850,200);
+        dialog.setLocation(850,600);
+
         dialog.setVisible(true);
 
     }

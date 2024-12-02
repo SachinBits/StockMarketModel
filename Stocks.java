@@ -37,7 +37,7 @@ public class Stocks{
         f1.add(transaction.getpanel(),BorderLayout.EAST);
         f1.add(Header.getpanel(),BorderLayout.NORTH);
 
-        f2.add(analytics.getPanel(),BorderLayout.WEST);
+        f2.add(analytics.getPanel());
 
         tabbedpane.add("Trading",f1);
         tabbedpane.add("Analytics",f2);
