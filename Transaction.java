@@ -11,20 +11,21 @@ public class Transaction extends JPanel implements ActionListener {
     static JButton Sell = new JButton("Sell");
     JComboBox CompanyList;
     JTextField Stocks_Num = new JTextField();
-    static Buying apple = new Buying(0, "Apple");
+//    static Buying apple = new Buying(0, "Apple");
     static Buying microsoft = new Buying(0, "Microsoft");
     static Buying lenovo = new Buying(0, "Lenovo");
     static Buying philips = new Buying(0, "Philips");
     static Buying google = new Buying(0, "Google");
     double cost_of_stocks;
+    User user = User.user;
 
     Transaction() {
 
         String[] Company_List = {"Apple", "Microsoft", "Philips", "Google", "Lenovo"};
         CompanyList = new JComboBox(Company_List);
-        CompanyList.setBounds(250,300,200,50);
+        CompanyList.setBounds(250,300,500,50);
 
-        Buy.setBounds(50, 50, 200, 50);
+        Buy.setBounds(200, 50, 200, 50);
         Sell.setBounds(400, 50, 200, 50);
 
         Buy.addActionListener(this);
@@ -51,80 +52,24 @@ public class Transaction extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int number = Integer.parseInt(Stocks_Num.getText());
+        int quantity = Integer.parseInt(Stocks_Num.getText());
         String company = CompanyList.getSelectedItem().toString();
-
-        if (e.getSource() == Buy ) {
-            switch (company) {
-                case ("Apple"):
-                    if(check_Valid_transaction(number,Listing.generate_apple,Listing.generate_apple.b)) {
-                        apple.trade(number, "Buy");
-                    }
-                    break;
-                case ("Microsoft"):
-                    if(check_Valid_transaction(number,Listing.generate_microsoft,Listing.generate_microsoft.b)) {
-                        microsoft.trade(number, "Buy");
-                    }
-                    break;
-                case ("Lenovo"):
-                    if(check_Valid_transaction(number,Listing.generate_lenovo,Listing.generate_lenovo.b)) {
-                        lenovo.trade(number, "Buy");
-                    }
-                    break;
-                case ("Philips"):
-                    if(check_Valid_transaction(number,Listing.generate_philips,Listing.generate_philips.b)) {
-                        philips.trade(number, "Buy");
-                    }
-                    break;
-                case ("Google"):
-                    if(check_Valid_transaction(number,Listing.generate_google,Listing.generate_google.b)) {
-                        google.trade(number, "Buy");
-                    }
-                    break;
+        if (e.getSource() == Buy) {
+            if(user.buyStock(Stock.getInstance(company),quantity)) {
+                System.out.println("Bought Stock " + company);
+            }
+            else {
+                JOptionPane.showMessageDialog(this,"Insufficient Balance");
             }
         }
         else if (e.getSource() == Sell) {
-            switch (company) {
-                case ("Apple"):
-                    if(apple.getnumber()>=number){
-                        apple.trade(-number, "Sell");
-                    }
-                    break;
-                case ("Microsoft"):
-                    if(microsoft.getnumber()>=number){
-                        microsoft.trade(-number, "Sell");
-                    }
-                    break;
-                case ("Lenovo"):
-                    if(lenovo.getnumber()>=number){
-                        lenovo.trade(-number, "Sell");
-                    }
-                    break;
-                case ("Philips"):
-                    if(philips.getnumber()>=number){
-                    philips.trade(-number,"Sell");
-                    }
-                    break;
-                case ("Google"):
-                    if(google.getnumber()>=number){
-                        google.trade(-number, "Sell");
-                    }
-                    break;
+            if(user.sellStock(Stock.getInstance(company),quantity)) {
+                System.out.println("Bought Stock " + company);
+            }
+            else {
+                JOptionPane.showMessageDialog(this,"Insufficient Stocks");
             }
         }
-    }
-    public boolean check_Valid_transaction(int number,GraphsMain func,double[] og_array){
-        cost_of_stocks = number * func.getlatestvalue(og_array);
-        if(Buying.Balance>=cost_of_stocks){
-
-            return true;
         }
-        else {
-            JOptionPane.showMessageDialog(this,"Insufficient Balance");
-            return false;
-        }
-    }
-
 
 }
-

@@ -9,13 +9,14 @@ public class Stock {
     int lengthofarray=15;
     public ArrayList<Double> stock_history = new ArrayList<>(lengthofarray);
     private double intitalPrice = 100;
+    private static Map<String,Stock> registry = new HashMap<>();
 
     public Stock(String name, double intitalPrice) {
         this.name = name;
         this.intitalPrice =intitalPrice;
         setInitialValues();
-
         Timer timer = new Timer();
+        registry.put(name, this);
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run(){
@@ -29,7 +30,7 @@ public class Stock {
         int percent = rand.nextInt(1, 15);
         if(percent==1) {
             double priceChange = rand.nextDouble(-.5, .5);
-            createnews(priceChange);
+            //createnews(priceChange);
             return currentPrice+(currentPrice*priceChange);
         }
         else {
@@ -64,5 +65,17 @@ public class Stock {
         }
 
 
+    }
+
+    public double getCurrentPrice() {
+        return stock_history.get(lengthofarray-1);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public static Stock getInstance(String name) {
+        return registry.get(name);
     }
 }

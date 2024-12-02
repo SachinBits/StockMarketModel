@@ -4,12 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Stocks{
+
     public static void main(String... args) {
         JFrame Main=new JFrame();
+        Main.setResizable(true);
         JPanel f1=new JPanel();
         JPanel f2= new JPanel();
         Main.setLayout(new BorderLayout(100,100));
-        Main.setBounds(500,500,500,500);
+        Main.setBounds(500,500,1000,500);
         Main.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f1.setLayout(new BorderLayout(10,10));
         f1.setBounds(500,500,500,500);

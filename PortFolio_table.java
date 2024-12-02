@@ -2,17 +2,19 @@ package App;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+
+import static App.Listing.*;
 
 public class PortFolio_table extends JPanel{
     DefaultTableModel tableModel;
     JPanel table1;
     JTable table;
+    User user = User.user;
+
 
     public PortFolio_table() {
 
@@ -54,7 +56,7 @@ public class PortFolio_table extends JPanel{
             public void run() {
 
                 updateTableData();
-                updateTablefornull();
+                //updateTablefornull();
 
             }
         }, 0, 100);
@@ -63,29 +65,17 @@ public class PortFolio_table extends JPanel{
     // Get initial table data(can be automated later have to look into it)
     public Object[][] getdata() {
         return new Object[][]{
-                {1, Transaction.apple.getCompany(), Transaction.apple.getnumber(), Transaction.apple.Buying_price,
-                        Transaction.apple.getCurrent_Price(), Transaction.apple.getDifference()},
-                {2, Transaction.microsoft.getCompany(), Transaction.microsoft.getnumber(), Transaction.microsoft.Buying_price,
-                        Transaction.microsoft.getCurrent_Price(), Transaction.microsoft.getDifference()},
-                {3, Transaction.lenovo.getCompany(), Transaction.lenovo.getnumber(), Transaction.lenovo.Buying_price,
-                        Transaction.lenovo.getCurrent_Price(), Transaction.lenovo.getDifference()},
-                {4, Transaction.philips.getCompany(), Transaction.philips.getnumber(), Transaction.philips.Buying_price,
-                        Transaction.philips.getCurrent_Price(), Transaction.philips.getDifference()},
-                {5, Transaction.google.getCompany(), Transaction.google.getnumber(), Transaction.google.Buying_price,
-                        Transaction.google.getCurrent_Price(), Transaction.google.getDifference()}
+                {1, apple.getName(), user.getOwnedStockCount(apple), user.getBuyingPrice(apple),
+                        apple.getCurrentPrice(), user.getDifference(apple)},
+                {2, microsoft.getName(), user.getOwnedStockCount(microsoft), user.getBuyingPrice(microsoft),
+                        microsoft.getCurrentPrice(), user.getDifference(microsoft)},
+                {3, lenovo.getName(), user.getOwnedStockCount(lenovo), user.getBuyingPrice(lenovo),
+                        lenovo.getCurrentPrice(), user.getDifference(lenovo)},
+                {4, philips.getName(), user.getOwnedStockCount(philips), user.getBuyingPrice(philips),
+                        philips.getCurrentPrice(), user.getDifference(philips)},
+                {5, google.getName(), user.getOwnedStockCount(google), user.getBuyingPrice(google),
+                        google.getCurrentPrice(), user.getDifference(google)}
         };
-    }
-
-    public void updateTablefornull(){
-        for(int i=0;i<tableModel.getRowCount();i++){
-            int Number_of_Stocks=(int)tableModel.getValueAt(i,2);
-            if(Number_of_Stocks==0){
-                tableModel.setValueAt(0, i, 3);
-                tableModel.setValueAt(0, i, 4);
-                tableModel.setValueAt(0, i, 5);
-
-            }
-        }
     }
 
 
@@ -93,32 +83,19 @@ public class PortFolio_table extends JPanel{
         for (int i = 0; i < tableModel.getRowCount(); i++) {
             // Update each row with the latest stock data
             String stockName = (String) tableModel.getValueAt(i, 1);
-            switch (stockName) {
-                case "Apple":
-                    updateRow(i, Transaction.apple);
-                    break;
-                case "Microsoft":
-                    updateRow(i, Transaction.microsoft);
-                    break;
-                case "Lenovo":
-                    updateRow(i, Transaction.lenovo);
-                    break;
-                case "Philips":
-                    updateRow(i, Transaction.philips);
-                    break;
-                case "Google":
-                    updateRow(i, Transaction.google);
-                    break;
-            }
+            updateRow(i,Stock.getInstance(stockName));
         }
     }
 
-    private void updateRow(int row, Buying stock) {
-        tableModel.setValueAt(stock.getnumber(), row, 2);
-        tableModel.setValueAt(stock.getBuying_price(), row, 3);
-        tableModel.setValueAt(stock.getCurrent_Price(), row, 4);
-        tableModel.setValueAt(stock.getDifference(), row, 5);
+
+
+    private void updateRow(int row, Stock stock) {
+        tableModel.setValueAt(user.getOwnedStockCount(stock), row, 2);
+        tableModel.setValueAt(user.getBuyingPrice(stock), row, 3);
+        tableModel.setValueAt(stock.getCurrentPrice(), row, 4);
+        tableModel.setValueAt(user.getDifference(stock), row, 5);
     }
+
     public JPanel getPortfoliotable(){
         return table1;
     }

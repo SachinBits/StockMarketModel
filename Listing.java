@@ -15,11 +15,11 @@ public class Listing extends JPanel  {
     JPanel List;
     GraphFrame graphFrame;
     private DefaultTableModel tablemodel;
-    static Stock apple = new Stock("Apple",100);
-    static Stock microsoft = new Stock("Microsoft",100);
-    static Stock lenovo = new Stock("Lenovo",100);
-    static Stock philips = new Stock("Philips",100);
-    static Stock google = new Stock("Google",100);
+    public static Stock apple = new Stock("Apple",100);
+    public static Stock microsoft = new Stock("Microsoft",100);
+    public static Stock lenovo = new Stock("Lenovo",100);
+    public static Stock philips = new Stock("Philips",100);
+    public static Stock google = new Stock("Google",100);
     static GraphsMain generate_apple=new GraphsMain(apple.stock_history);
     static GraphsMain generate_microsoft=new GraphsMain(microsoft.stock_history);
     static GraphsMain generate_lenovo=new GraphsMain(lenovo.stock_history);
@@ -57,7 +57,7 @@ public class Listing extends JPanel  {
         }
         Table.setPreferredSize(new Dimension(850,1000));
         List.setBackground(Color.blue);
-        List.setPreferredSize(new Dimension(850, 30));
+        List.setPreferredSize(new Dimension(500, 30));
         List.add(scrollPane, BorderLayout.CENTER);
 
         Timer timer = new Timer();

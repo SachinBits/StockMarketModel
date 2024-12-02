@@ -7,36 +7,48 @@ import java.util.TimerTask;
 
 public class Heading extends JPanel{
     JPanel Header;
-    JLabel Headerlabel1=new JLabel();
+    JLabel Headerlabel1=new JLabel();;
+    User user = User.user;
+
     Heading(){
-        setLayout(new GridLayout(2,1));
-        JLabel Headerlabel=new JLabel("WELCOME TO THE STOCK SIMULATION");
+        setLayout(new BorderLayout(10,10));
+        JLabel Headerlabel=new JLabel("Stock Trading");
         Headerlabel.setFont(new Font("Arial",Font.PLAIN,40));
-        Headerlabel.setHorizontalTextPosition(JLabel.CENTER);
-        Headerlabel.setVerticalTextPosition(JLabel.CENTER);
         Headerlabel.setHorizontalAlignment(JLabel.CENTER);
-        Headerlabel.setVerticalAlignment(JLabel.TOP);
-        Timer timer =new Timer();
+        Headerlabel.setVerticalAlignment(JLabel.CENTER);
+
         Header=new JPanel();
         Header.setLayout(new BorderLayout());
 
-        Header.setPreferredSize(new Dimension(100,100));
-        Header.setBackground(Color.GRAY);
-        Header.add(Headerlabel,BorderLayout.CENTER);
+        //Header.add(Headerlabel, BorderLayout.NORTH);
+
+        Header.add(Box.createVerticalStrut(20), BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel(new GridLayout(1, 3, 10, 10));
+
+        JLabel balanceLabel = new JLabel("Balance: $"+user.getBalance(), JLabel.CENTER);
+        balanceLabel.setFont(new Font("Arial", Font.BOLD, 20));
+
+        JLabel profitLabel = new JLabel("Profit: $"+user.getProfit(), JLabel.CENTER);
+        profitLabel.setFont(new Font("Arial", Font.BOLD, 20));
+
+        JLabel unrealizedProfitLabel = new JLabel("Unrealized Profit: $"+user.getUnrealizedProfit(), JLabel.CENTER);
+        unrealizedProfitLabel.setFont(new Font("Arial", Font.BOLD, 20));
+
+        bottomPanel.add(balanceLabel);
+        bottomPanel.add(profitLabel);
+        bottomPanel.add(unrealizedProfitLabel);
+
+        Header.add(bottomPanel, BorderLayout.SOUTH);
 
 
+        Timer timer =new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                Headerlabel1.setText("Balance:"+(int)Buying.Balance+"\nProfit/Loss:"+(int)Buying.profit_loss);
-                Headerlabel1.setFont(new Font("Arial",Font.PLAIN,40));
-                Headerlabel1.setHorizontalTextPosition(JLabel.CENTER);
-                Headerlabel1.setVerticalTextPosition(JLabel.CENTER);
-                Headerlabel1.setHorizontalAlignment(JLabel.CENTER);
-                Headerlabel1.setVerticalAlignment(JLabel.CENTER);
-                Header.add(Headerlabel1,BorderLayout.EAST);
-
-
+                balanceLabel.setText("Balance: $" + (int) user.getBalance());
+                profitLabel.setText("Profit: $" + (int) user.getProfit());
+                unrealizedProfitLabel.setText("Unrealized Profit: $" + (int) user.getUnrealizedProfit());
         }},0,100);
     }
 
