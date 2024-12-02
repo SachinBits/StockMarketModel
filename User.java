@@ -6,6 +6,7 @@ import java.util.HashMap;
 class StockDetails {
     public int quantity;
     public double price;
+
     StockDetails(int quantity, double price) {
         this.quantity = quantity;
         this.price = price;
@@ -16,9 +17,10 @@ public class User {
     private String userName, password;
     private double intitial_balance, balance;
     private HashMap<Stock,StockDetails> ownedStocks = new HashMap<>();
+    static double profit;
 
     private ArrayList<String> trades;
-    static double profit;//[Company,Price Bought or Sold, Profit or Loss Incurred]
+//    static double profit;//[Company,Price Bought or Sold, Profit or Loss Incurred]
 
     public User(String userName, String password, double intitial_balance, double balance) {
         this.userName = userName;
@@ -31,18 +33,15 @@ public class User {
         profit=profit+(buyingprice*amount);
         return profit;
     }
-
-    public double getProfit(){
-        return profit;
-    }
-
-
     public String getUserName() {
         return userName;
     }
 
     public double getBalance() {
         return balance;
+    }
+    public double getProfit(){
+        return profit;
     }
 
     //In buy and sell operations trua implies a successful transaction.
@@ -71,10 +70,6 @@ public class User {
 
                 calcProfit(amount,getDifference(stock));
 
-
-
-
-
                 if(getOwnedStockCount(stock)==0) {
                     ownedStocks.remove(stock);
                 }
@@ -88,6 +83,7 @@ public class User {
             return false;
         }
     }
+
 
     public double getUnrealizedProfit() {
         double unr_profit = 0;
@@ -107,8 +103,8 @@ public class User {
 
     public double getBuyingPrice(Stock stock) {
         try {
-//            return ownedStocks.get(stock).price;
-            return stock.getCurrentPrice();
+            return ownedStocks.get(stock).price;
+//            return stock.getCurrentPrice();
         }
         catch (Exception e) {
             return 0;

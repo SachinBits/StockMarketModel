@@ -28,6 +28,9 @@ public class TransactionHistory {
         historyTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(historyTable);
         historyPanel.add(scrollPane, BorderLayout.CENTER);
+
+        PortFolio_table tb=new PortFolio_table();
+        tb.setrowwidth(historyTable,25);
     }
 
     public JPanel getPanel() {

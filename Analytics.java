@@ -48,13 +48,14 @@ public class Analytics {
             @Override
             public void run() {
                 TableModel table=getcompanies.gettable();
-                for(int i=0;i<table.getRowCount();i++){
+                for(int i=0;i<5;i++){
                     Object[] row =new Object[table.getColumnCount()];
                     for(int j=0;j<table.getColumnCount();j++){
                         row[j]=table.getValueAt(i,j);
                     }
                     rows.add(row);
                 }
+
                 rows.sort((row1,row2)->{
                     Double value1=Double.parseDouble(row1[2].toString());
                     Double value2=Double.parseDouble(row2[2].toString());

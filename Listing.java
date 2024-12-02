@@ -55,9 +55,9 @@ public class Listing extends JPanel  {
         for(int i=1;i<Table.getColumnCount();i++){
             settablewidth(i,400);
         }
-        Table.setPreferredSize(new Dimension(850,1000));
+
         List.setBackground(Color.blue);
-        List.setPreferredSize(new Dimension(500, 30));
+        List.setPreferredSize(new Dimension(850, 30));
         List.add(scrollPane, BorderLayout.CENTER);
 
         Timer timer = new Timer();
