@@ -37,7 +37,7 @@ public class Heading extends JPanel{
                 Header.add(Headerlabel1,BorderLayout.EAST);
 
 
-        }},0,1000);
+        }},0,100);
     }
 
     public JPanel getpanel(){

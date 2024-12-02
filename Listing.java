@@ -47,6 +47,8 @@ public class Listing extends JPanel  {
         List.setLayout(new BorderLayout());
 
         Table = new JTable(tablemodel);
+        PortFolio_table tb=new PortFolio_table();
+        tb.setrowwidth(Table,25);
 
         JScrollPane scrollPane = new JScrollPane(Table);
         settablewidth(0,200);
@@ -65,6 +67,7 @@ public class Listing extends JPanel  {
             public void run() {
 
                 updatetable();
+
 
 
             }
@@ -142,6 +145,9 @@ public class Listing extends JPanel  {
     }
     public void settablewidth(int column,int width){
         Table.getColumnModel().getColumn(column).setPreferredWidth(width);
+    }
+    public TableModel gettable(){
+        return tablemodel;
     }
 
 }

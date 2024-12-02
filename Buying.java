@@ -86,17 +86,17 @@ public class Buying {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-
-                Current_Price = a.getlatestvalue(b);
-                Difference = Current_Price - Buying_price;
-
                 if (number == 0) {
-
                     Current_Price = 0;
                     Difference = 0;
                     timer.cancel();
 
                 }
+
+                Current_Price = a.getlatestvalue(b);
+                Difference = Current_Price - Buying_price;
+
+
 
             }
 
@@ -114,15 +114,16 @@ public class Buying {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-
-                Current_Price = a.getlatestvalue(b);
-                Difference = Current_Price - Buying_price;
-
                 if (number == 0) {
 
                     timer.cancel();
                     System.out.println("All stocks sold for " + company + ". Timer stopped.");
                 }
+
+                Current_Price = a.getlatestvalue(b);
+                Difference = Current_Price - Buying_price;
+
+
             }
 
 

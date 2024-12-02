@@ -22,16 +22,18 @@ public class Transaction extends JPanel implements ActionListener {
 
         String[] Company_List = {"Apple", "Microsoft", "Philips", "Google", "Lenovo"};
         CompanyList = new JComboBox(Company_List);
+        CompanyList.setBounds(250,300,200,50);
 
-        Buy.setBounds(50, 50, 50, 50);
-        Sell.setBounds(50, 50, 50, 50);
+        Buy.setBounds(50, 50, 200, 50);
+        Sell.setBounds(400, 50, 200, 50);
 
         Buy.addActionListener(this);
         Sell.addActionListener(this);
         CompanyList.addActionListener(this);
 
-
         transaction = new JPanel();
+
+
         Stocks_Num.setPreferredSize(new Dimension(100,30));
 
         transaction.setBackground(Color.GRAY);
@@ -51,8 +53,6 @@ public class Transaction extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         int number = Integer.parseInt(Stocks_Num.getText());
         String company = CompanyList.getSelectedItem().toString();
-
-
 
         if (e.getSource() == Buy ) {
             switch (company) {

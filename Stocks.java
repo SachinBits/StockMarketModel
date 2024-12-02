@@ -14,6 +14,9 @@ public class Stocks{
         f1.setLayout(new BorderLayout(10,10));
         f1.setBounds(500,500,500,500);
 
+        f2.setLayout(new BorderLayout(10,10));
+        f2.setBounds(500,500,500,500);
+
         JTabbedPane tabbedpane=new JTabbedPane();
 
         PortFolio portfolio=new PortFolio();
@@ -21,11 +24,15 @@ public class Stocks{
         Listing List=new   Listing();
         Transaction transaction=new Transaction();
         PortFolio_table portFolioTable=new PortFolio_table();
+        Analytics analytics=new Analytics();
+        analytics.leaderboard();
 
         f1.add(portFolioTable.getPortfoliotable(),BorderLayout.SOUTH);
         f1.add(List.getpanel(), BorderLayout.WEST);
         f1.add(transaction.getpanel(),BorderLayout.EAST);
         f1.add(Header.getpanel(),BorderLayout.NORTH);
+
+        f2.add(analytics.getPanel(),BorderLayout.WEST);
 
         tabbedpane.add("Trading",f1);
         tabbedpane.add("Analytics",f2);
@@ -34,4 +41,3 @@ public class Stocks{
         Main.setVisible(true);
     }
 }
-

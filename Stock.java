@@ -1,6 +1,8 @@
 package App;
 
+import javax.swing.*;
 import java.util.*;
+import java.util.Timer;
 
 public class Stock {
     private String name;
@@ -19,14 +21,15 @@ public class Stock {
             public void run(){
                 updateArray();
             }
-        }, 0, 1000);
+        }, 0, 3000);
     }
 
     double nextValue(double currentPrice) {
         Random rand =new Random();
-        int percent = rand.nextInt(1, 20);
+        int percent = rand.nextInt(1, 15);
         if(percent==1) {
             double priceChange = rand.nextDouble(-.5, .5);
+            createnews(priceChange);
             return currentPrice+(currentPrice*priceChange);
         }
         else {
@@ -46,5 +49,20 @@ public class Stock {
 
         stock_history.add(nextValue(stock_history.get(lengthofarray-1)));
         stock_history.remove(0);
+    }
+    int o=0;
+    public void createnews(double priceChange){
+        o++;
+        if(o>2) {
+            if (priceChange > 0.05) {
+                Random_News randomNews = new Random_News();
+                randomNews.positive_news(name);
+            } else if (priceChange < -0.05) {
+                Random_News randomNews = new Random_News();
+                randomNews.negative_news(name);
+            }
+        }
+
+
     }
 }
