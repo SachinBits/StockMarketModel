@@ -6,7 +6,6 @@ import java.util.HashMap;
 class StockDetails {
     public int quantity;
     public double price;
-
     StockDetails(int quantity, double price) {
         this.quantity = quantity;
         this.price = price;
@@ -17,10 +16,8 @@ public class User {
     private String userName, password;
     private double intitial_balance, balance;
     private HashMap<Stock,StockDetails> ownedStocks = new HashMap<>();
-    static double profit;
 
-    private ArrayList<String> trades;
-//    static double profit;//[Company,Price Bought or Sold, Profit or Loss Incurred]
+    private ArrayList<String> trades; //[Company,Price Bought or Sold, Profit or Loss Incurred]
 
     public User(String userName, String password, double intitial_balance, double balance) {
         this.userName = userName;
@@ -28,20 +25,16 @@ public class User {
         this.balance = balance;
     }
 
-    public double calcProfit(int amount,double buyingprice) {
-
-        profit=profit+(buyingprice*amount);
-        return profit;
+    public double getProfit() {
+        return balance - intitial_balance;
     }
+
     public String getUserName() {
         return userName;
     }
 
     public double getBalance() {
         return balance;
-    }
-    public double getProfit(){
-        return profit;
     }
 
     //In buy and sell operations trua implies a successful transaction.
@@ -66,9 +59,6 @@ public class User {
                 ownedStocks.put(stock, new StockDetails(ownedStocks.get(stock).quantity-amount,
                         ownedStocks.get(stock).price-stock.getCurrentPrice()*amount));
                 this.balance += amount*stock.getCurrentPrice();
-
-                calcProfit(amount,getDifference(stock));
-
                 if(getOwnedStockCount(stock)==0) {
                     ownedStocks.remove(stock);
                 }
@@ -82,7 +72,6 @@ public class User {
             return false;
         }
     }
-
 
     public double getUnrealizedProfit() {
         double unr_profit = 0;
@@ -103,7 +92,6 @@ public class User {
     public double getBuyingPrice(Stock stock) {
         try {
             return ownedStocks.get(stock).price;
-//            return stock.getCurrentPrice();
         }
         catch (Exception e) {
             return 0;
@@ -119,7 +107,5 @@ public class User {
         }
     }
 
-
-
-    public static User user = new User("User","12340",10000,10000);
+    public static User user = new User("User","12340",5000,5000);
 }
