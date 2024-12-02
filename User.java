@@ -17,7 +17,8 @@ public class User {
     private double intitial_balance, balance;
     private HashMap<Stock,StockDetails> ownedStocks = new HashMap<>();
 
-    private ArrayList<String> trades; //[Company,Price Bought or Sold, Profit or Loss Incurred]
+    private ArrayList<String> trades;
+    static double profit;//[Company,Price Bought or Sold, Profit or Loss Incurred]
 
     public User(String userName, String password, double intitial_balance, double balance) {
         this.userName = userName;
@@ -25,9 +26,16 @@ public class User {
         this.balance = balance;
     }
 
-    public double getProfit() {
-        return balance - intitial_balance;
+    public double calcProfit(int amount,double buyingprice) {
+
+        profit=profit+(buyingprice*amount);
+        return profit;
     }
+
+    public double getProfit(){
+        return profit;
+    }
+
 
     public String getUserName() {
         return userName;
@@ -54,11 +62,19 @@ public class User {
         }
     }
     public boolean sellStock(Stock stock, int amount) {
+        double difference;
         if(ownedStocks.containsKey(stock)) {
             if(ownedStocks.get(stock).quantity >= amount) {
                 ownedStocks.put(stock, new StockDetails(ownedStocks.get(stock).quantity-amount,
                         ownedStocks.get(stock).price-stock.getCurrentPrice()*amount));
                 this.balance += amount*stock.getCurrentPrice();
+
+                calcProfit(amount,getDifference(stock));
+
+
+
+
+
                 if(getOwnedStockCount(stock)==0) {
                     ownedStocks.remove(stock);
                 }
@@ -91,7 +107,8 @@ public class User {
 
     public double getBuyingPrice(Stock stock) {
         try {
-            return ownedStocks.get(stock).price;
+//            return ownedStocks.get(stock).price;
+            return stock.getCurrentPrice();
         }
         catch (Exception e) {
             return 0;
@@ -107,5 +124,7 @@ public class User {
         }
     }
 
-    public static User user = new User("User","12340",5000,5000);
+
+
+    public static User user = new User("User","12340",10000,10000);
 }

@@ -5,19 +5,20 @@ import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Heading extends JPanel{
+public class Heading extends JPanel {
     JPanel Header;
-    JLabel Headerlabel1=new JLabel();;
+    JLabel Headerlabel1 = new JLabel();
+    ;
     User user = User.user;
 
-    Heading(){
-        setLayout(new BorderLayout(10,10));
-        JLabel Headerlabel=new JLabel("Stock Trading");
-        Headerlabel.setFont(new Font("Arial",Font.PLAIN,40));
+    Heading() {
+        setLayout(new BorderLayout(10, 10));
+        JLabel Headerlabel = new JLabel("Stock Trading");
+        Headerlabel.setFont(new Font("Arial", Font.PLAIN, 40));
         Headerlabel.setHorizontalAlignment(JLabel.CENTER);
         Headerlabel.setVerticalAlignment(JLabel.CENTER);
 
-        Header=new JPanel();
+        Header = new JPanel();
         Header.setLayout(new BorderLayout());
 
         //Header.add(Headerlabel, BorderLayout.NORTH);
@@ -26,13 +27,13 @@ public class Heading extends JPanel{
 
         JPanel bottomPanel = new JPanel(new GridLayout(1, 3, 10, 10));
 
-        JLabel balanceLabel = new JLabel("Balance: $"+user.getBalance(), JLabel.CENTER);
+        JLabel balanceLabel = new JLabel("Balance: $" + user.getBalance(), JLabel.CENTER);
         balanceLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
-        JLabel profitLabel = new JLabel("Profit: $"+user.getProfit(), JLabel.CENTER);
+        JLabel profitLabel = new JLabel("Profit: $" + user.getProfit(), JLabel.CENTER);
         profitLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
-        JLabel unrealizedProfitLabel = new JLabel("Unrealized Profit: $"+user.getUnrealizedProfit(), JLabel.CENTER);
+        JLabel unrealizedProfitLabel = new JLabel("Unrealized Profit: $" + user.getUnrealizedProfit(), JLabel.CENTER);
         unrealizedProfitLabel.setFont(new Font("Arial", Font.BOLD, 20));
 
         bottomPanel.add(balanceLabel);
@@ -42,17 +43,23 @@ public class Heading extends JPanel{
         Header.add(bottomPanel, BorderLayout.SOUTH);
 
 
-        Timer timer =new Timer();
+        Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 balanceLabel.setText("Balance: $" + (int) user.getBalance());
                 profitLabel.setText("Profit: $" + (int) user.getProfit());
                 unrealizedProfitLabel.setText("Unrealized Profit: $" + (int) user.getUnrealizedProfit());
-        }},0,100);
+            }
+        }, 0, 100);
+
+
     }
 
-    public JPanel getpanel(){
+
+    public JPanel getpanel() {
         return Header;
     }
-    }
+}
+
+

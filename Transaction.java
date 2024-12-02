@@ -6,20 +6,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Transaction extends JPanel implements ActionListener {
-    private JPanel transaction;
-    private static JButton Buy = new JButton("Buy");
-    private static JButton Sell = new JButton("Sell");
-    private JComboBox<String> CompanyList;
-    private JTextField Stocks_Num = new JTextField();
-    private User user = User.user;
-    private TransactionHistory transactionHistory; // Reference to the TransactionHistory
+    JPanel transaction;
+    static JButton Buy = new JButton("Buy");
+    static JButton Sell = new JButton("Sell");
+    JComboBox CompanyList;
+    JTextField Stocks_Num = new JTextField();
+//    static Buying apple = new Buying(0, "Apple");
+    static Buying microsoft = new Buying(0, "Microsoft");
+    static Buying lenovo = new Buying(0, "Lenovo");
+    static Buying philips = new Buying(0, "Philips");
+    static Buying google = new Buying(0, "Google");
+    double cost_of_stocks;
+    User user = User.user;
 
-    public Transaction(TransactionHistory transactionHistory) {
-        this.transactionHistory = transactionHistory; // Pass the TransactionHistory instance
+    Transaction() {
 
         String[] Company_List = {"Apple", "Microsoft", "Philips", "Google", "Lenovo"};
-        CompanyList = new JComboBox<>(Company_List);
-        CompanyList.setBounds(250, 300, 500, 50);
+        CompanyList = new JComboBox(Company_List);
+        CompanyList.setBounds(250,300,500,50);
 
         Buy.setBounds(200, 50, 200, 50);
         Sell.setBounds(400, 50, 200, 50);
@@ -29,7 +33,9 @@ public class Transaction extends JPanel implements ActionListener {
         CompanyList.addActionListener(this);
 
         transaction = new JPanel();
-        Stocks_Num.setPreferredSize(new Dimension(100, 30));
+
+
+        Stocks_Num.setPreferredSize(new Dimension(100,30));
 
         transaction.setBackground(Color.GRAY);
         transaction.setPreferredSize(new Dimension(850, 30));
@@ -37,6 +43,7 @@ public class Transaction extends JPanel implements ActionListener {
         transaction.add(Sell);
         transaction.add(CompanyList);
         transaction.add(Stocks_Num);
+
     }
 
     public JPanel getpanel() {
@@ -45,28 +52,25 @@ public class Transaction extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        try {
-            int quantity = Integer.parseInt(Stocks_Num.getText());
-            String company = CompanyList.getSelectedItem().toString();
-            String date = java.time.LocalDate.now().toString(); // Current date
-
-            if (e.getSource() == Buy) {
-                if (user.buyStock(Stock.getInstance(company), quantity)) {
-                    transactionHistory.addTransaction(company, "Buy", quantity, Stock.getInstance(company).getCurrentPrice(), date);
-                    System.out.println("Bought Stock: " + company);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Insufficient Balance");
-                }
-            } else if (e.getSource() == Sell) {
-                if (user.sellStock(Stock.getInstance(company), quantity)) {
-                    transactionHistory.addTransaction(company, "Sell", quantity, Stock.getInstance(company).getCurrentPrice(), date);
-                    System.out.println("Sold Stock: " + company);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Insufficient Stocks");
-                }
+        int quantity = Integer.parseInt(Stocks_Num.getText());
+        String company = CompanyList.getSelectedItem().toString();
+        if (e.getSource() == Buy) {
+            if(user.buyStock(Stock.getInstance(company),quantity)) {
+                System.out.println("Bought Stock " + company);
             }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid number of stocks.");
+            else {
+                JOptionPane.showMessageDialog(this,"Insufficient Balance");
+            }
         }
-    }
+        else if (e.getSource() == Sell) {
+            if(user.sellStock(Stock.getInstance(company),quantity)) {
+
+                System.out.println("Bought Stock " + company);
+            }
+            else {
+                JOptionPane.showMessageDialog(this,"Insufficient Stocks");
+            }
+        }
+        }
+
 }
