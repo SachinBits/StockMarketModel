@@ -14,8 +14,9 @@ class StockDetails {
 
 public class User {
     private String userName, password;
-    private double intitial_balance, balance;
+    private double intitial_balance, balance, realizedprofit;
     private HashMap<Stock,StockDetails> ownedStocks = new HashMap<>();
+
 
     private ArrayList<String> trades; //[Company,Price Bought or Sold, Profit or Loss Incurred]
 
@@ -26,7 +27,8 @@ public class User {
     }
 
     public double getProfit() {
-        return balance - intitial_balance;
+
+        return balance - intitial_balance + getAssetWorth();
     }
 
     public String getUserName() {
@@ -73,13 +75,22 @@ public class User {
         }
     }
 
+    public double getAssetWorth() {
+        double price = 0;
+        for(Stock stock : ownedStocks.keySet()) {
+            price += stock.getCurrentPrice()*getOwnedStockCount(stock);
+        }
+        return price;
+    }
+
     public double getUnrealizedProfit() {
         double unr_profit = 0;
         for(Stock stock : ownedStocks.keySet()) {
             unr_profit += stock.getCurrentPrice()*getOwnedStockCount(stock)-ownedStocks.get(stock).price;
         }
-        return unr_profit; //wrong code
+        return unr_profit;
     }
+
 
     public int getOwnedStockCount(Stock stock) {
         try {
