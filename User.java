@@ -5,19 +5,17 @@ import java.util.HashMap;
 
 class StockDetails {
     public int quantity;
-    public double price,lastprice;
+    public double price;
     StockDetails(int quantity, double price) {
         this.quantity = quantity;
         this.price = price;
-        this.lastprice = price;
     }
 }
 
 public class User {
     private String userName, password;
-    private double intitial_balance, balance, realizedprofit;
+    private double intitial_balance, balance;
     private HashMap<Stock,StockDetails> ownedStocks = new HashMap<>();
-
 
     private ArrayList<String> trades; //[Company,Price Bought or Sold, Profit or Loss Incurred]
 
@@ -28,8 +26,7 @@ public class User {
     }
 
     public double getProfit() {
-
-        return balance - intitial_balance + getAssetWorth();
+        return balance - intitial_balance;
     }
 
     public String getUserName() {
@@ -53,7 +50,6 @@ public class User {
             } else {
                 ownedStocks.put(stock, new StockDetails(amount, stock.getCurrentPrice()*amount));
             }
-            ownedStocks.get(stock).lastprice = stock.getCurrentPrice();
             return true;
         }
     }
@@ -77,22 +73,13 @@ public class User {
         }
     }
 
-    public double getAssetWorth() {
-        double price = 0;
-        for(Stock stock : ownedStocks.keySet()) {
-            price += stock.getCurrentPrice()*getOwnedStockCount(stock);
-        }
-        return price;
-    }
-
     public double getUnrealizedProfit() {
         double unr_profit = 0;
         for(Stock stock : ownedStocks.keySet()) {
             unr_profit += stock.getCurrentPrice()*getOwnedStockCount(stock)-ownedStocks.get(stock).price;
         }
-        return unr_profit;
+        return unr_profit; //wrong code
     }
-
 
     public int getOwnedStockCount(Stock stock) {
         try {
@@ -104,8 +91,7 @@ public class User {
 
     public double getBuyingPrice(Stock stock) {
         try {
-            //return ownedStocks.get(stock).price;
-            return  ownedStocks.get(stock).lastprice;
+            return ownedStocks.get(stock).price;
         }
         catch (Exception e) {
             return 0;
@@ -114,16 +100,7 @@ public class User {
 
     public double getDifference(Stock stock) {
         try {
-            return -(ownedStocks.get(stock).lastprice-stock.getCurrentPrice());
-        }
-        catch (Exception e) {
-            return 0;
-        }
-    }
-
-    public double getUnrealizedProfit(Stock stock) {
-        try {
-            return -ownedStocks.get(stock).price+stock.getCurrentPrice()*getOwnedStockCount(stock);
+            return -getBuyingPrice(stock)+stock.getCurrentPrice()*getOwnedStockCount(stock);
         }
         catch (Exception e) {
             return 0;

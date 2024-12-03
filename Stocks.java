@@ -45,6 +45,7 @@ public class Stocks{
         tabbedpane.add("Transaction History", transactionHistory.getPanel());
 
         Main.add(tabbedpane);
+        Main.setExtendedState(JFrame.MAXIMIZED_BOTH);
         Main.setVisible(true);
     }
     public void getFrame(){

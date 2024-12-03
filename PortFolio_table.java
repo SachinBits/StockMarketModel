@@ -18,7 +18,7 @@ public class PortFolio_table extends JPanel{
 
     public PortFolio_table() {
 
-        String[] columns = {"ID", "Stock", "Owned Stock", "Buying Price", "Current Price","Difference", "Unrealized Profit"};
+        String[] columns = {"ID", "Stock", "Owned Stock", "Buying Price", "Current Price", "Difference"};
 
 
         tableModel = new DefaultTableModel(getdata(), columns) {
@@ -81,7 +81,6 @@ public class PortFolio_table extends JPanel{
 
     private void updateTableData() {
         for (int i = 0; i < tableModel.getRowCount(); i++) {
-            // Update each row with the latest stock data
             String stockName = (String) tableModel.getValueAt(i, 1);
             updateRow(i,Stock.getInstance(stockName));
         }
@@ -94,7 +93,6 @@ public class PortFolio_table extends JPanel{
         tableModel.setValueAt(user.getBuyingPrice(stock), row, 3);
         tableModel.setValueAt(stock.getCurrentPrice(), row, 4);
         tableModel.setValueAt(user.getDifference(stock), row, 5);
-        tableModel.setValueAt(user.getUnrealizedProfit(stock), row, 6);
     }
 
     public JPanel getPortfoliotable(){
