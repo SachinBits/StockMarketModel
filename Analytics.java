@@ -64,7 +64,7 @@ public class Analytics {
         companyRows.clear();
 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i <  tableModelFromListing.getRowCount(); i++) {
             Object[] row = new Object[tableModelFromListing.getColumnCount()];
             for (int j = 0; j < tableModelFromListing.getColumnCount(); j++) {
                 row[j] = tableModelFromListing.getValueAt(i, j);
