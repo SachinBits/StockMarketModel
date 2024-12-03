@@ -30,7 +30,7 @@ public class Analytics {
         analyticsPanel.add(leaderboardLabel, BorderLayout.NORTH);
 
 
-        String[] columnNames = {"Rank", "Company", "Stock Price"};
+        String[] columnNames = {"ID", "Company", "Stock Price"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
