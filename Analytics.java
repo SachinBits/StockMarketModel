@@ -2,89 +2,96 @@ package App;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Analytics {
-    JPanel analytics;
-    JLabel LeaderBoard;
-    DefaultTableModel tablemodel2;
-    JTable table2;
-    ArrayList<Object[]> rows=new ArrayList<>();
+    private JPanel analyticsPanel;
+    private JLabel leaderboardLabel;
+    private DefaultTableModel tableModel;
+    private JTable leaderboardTable;
+    private ArrayList<Object[]> companyRows = new ArrayList<>();
 
-    public Analytics(){
-        analytics=new JPanel();
-        String[] columns={"ID","Companies","Current Stock Price"};
-        Object data[][] = new Object[0][];
+    public Analytics() {
 
-        tablemodel2=new DefaultTableModel(data,columns){
+        analyticsPanel = new JPanel();
+        analyticsPanel.setLayout(new BorderLayout(10, 10));
+        analyticsPanel.setBackground(Color.WHITE);
+
+        leaderboardLabel = new JLabel("📈 Stock Leaderboard", SwingConstants.CENTER);
+        leaderboardLabel.setFont(new Font("SansSerif", Font.BOLD, 36));
+        leaderboardLabel.setForeground(new Color(0, 102, 204));
+        leaderboardLabel.setOpaque(true);
+        leaderboardLabel.setBackground(new Color(240, 240, 240));
+        leaderboardLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 15, 10));
+        analyticsPanel.add(leaderboardLabel, BorderLayout.NORTH);
+
+
+        String[] columnNames = {"Rank", "Company", "Stock Price"};
+        tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
-            public boolean isCellEditable(int row,int columns){
+            public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        LeaderBoard=new JLabel("LeaderBoard");
-        LeaderBoard.setFont(new Font("Arial",Font.ITALIC,50));
-        LeaderBoard.setVerticalTextPosition(JLabel.CENTER);
+        leaderboardTable = new JTable(tableModel);
+        leaderboardTable.setRowHeight(40);
+        leaderboardTable.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        leaderboardTable.setGridColor(new Color(230, 230, 230));
 
-        table2=new JTable(tablemodel2);
-        PortFolio_table tb=new PortFolio_table();
-        tb.setrowwidth(table2,40);
+        JTableHeader header = leaderboardTable.getTableHeader();
+        header.setFont(new Font("SansSerif", Font.BOLD, 16));
+        header.setBackground(new Color(200, 200, 200));
+        header.setForeground(Color.BLACK);
 
-        table2.setPreferredSize(new Dimension(100,1000));
-        JScrollPane scrollPane2=new JScrollPane(table2);
-        analytics=new JPanel();
-        analytics.setLayout((new BorderLayout()));
-        analytics.setPreferredSize(new Dimension(600,500));
-        Listing getcompanies=new Listing();
+        JScrollPane scrollPane = new JScrollPane(leaderboardTable);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        analyticsPanel.add(scrollPane, BorderLayout.CENTER);
 
-        Timer timer =new Timer();
+        Listing companyData = new Listing();
+        Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                TableModel table=getcompanies.gettable();
-                for(int i=0;i<5;i++){
-                    Object[] row =new Object[table.getColumnCount()];
-                    for(int j=0;j<table.getColumnCount();j++){
-                        row[j]=table.getValueAt(i,j);
-                    }
-                    rows.add(row);
-                }
-
-                rows.sort((row1,row2)->{
-                    Double value1=Double.parseDouble(row1[2].toString());
-                    Double value2=Double.parseDouble(row2[2].toString());
-                    return value2.compareTo(value1);
-
-                });
-                SwingUtilities.invokeLater(()->setleaderboard(rows));
+                updateLeaderboard(companyData.gettable());
             }
-        },0,1000);
-        analytics.add(LeaderBoard,BorderLayout.NORTH);
-
-        analytics.add(scrollPane2,BorderLayout.CENTER);
-
-
+        }, 0, 2000);
     }
-    public void setleaderboard(ArrayList<Object[]> company){
-        tablemodel2.setRowCount(0);
-        for(Object[] z:company){
-            tablemodel2.addRow(z);
+    private void updateLeaderboard(javax.swing.table.TableModel tableModelFromListing) {
+        companyRows.clear();
+
+
+        for (int i = 0; i < 10; i++) {
+            Object[] row = new Object[tableModelFromListing.getColumnCount()];
+            for (int j = 0; j < tableModelFromListing.getColumnCount(); j++) {
+                row[j] = tableModelFromListing.getValueAt(i, j);
+            }
+            companyRows.add(row);
         }
-        rows.clear();
-    }
 
 
-    public JPanel getPanel(){
-        return analytics;
-    }
-    public void leaderboard(){
-        new Analytics();
+        companyRows.sort((row1, row2) -> {
+            Double price1 = Double.parseDouble(row1[2].toString());
+            Double price2 = Double.parseDouble(row2[2].toString());
+            return price2.compareTo(price1);
+        });
+
+
+        SwingUtilities.invokeLater(() -> refreshLeaderboardTable(companyRows));
     }
 
+    private void refreshLeaderboardTable(ArrayList<Object[]> sortedRows) {
+        tableModel.setRowCount(0);
+
+        for (Object[] row : sortedRows) {
+            tableModel.addRow(row);
+        }
+    }
+
+    public JPanel getPanel() {
+        return analyticsPanel;
+    }
 }

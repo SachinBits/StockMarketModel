@@ -31,7 +31,7 @@ public class Stocks{
 
         Analytics analytics=new Analytics();
 
-        analytics.leaderboard();
+        analytics.getPanel();
 
         f1.add(portFolioTable.getPortfoliotable(),BorderLayout.SOUTH);
         f1.add(List.getpanel(), BorderLayout.WEST);
@@ -45,7 +45,6 @@ public class Stocks{
         tabbedpane.add("Transaction History", transactionHistory.getPanel());
 
         Main.add(tabbedpane);
-        Main.setExtendedState(JFrame.MAXIMIZED_BOTH);
         Main.setVisible(true);
     }
     public void getFrame(){

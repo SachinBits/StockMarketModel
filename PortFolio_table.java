@@ -18,7 +18,7 @@ public class PortFolio_table extends JPanel{
 
     public PortFolio_table() {
 
-        String[] columns = {"ID", "Stock", "Owned Stock", "Buying Price", "Current Price", "Difference"};
+        String[] columns = {"ID", "Stock", "Owned Stock", "Buying Price", "Current Price","Difference", "Unrealized Profit"};
 
 
         tableModel = new DefaultTableModel(getdata(), columns) {
@@ -74,13 +74,45 @@ public class PortFolio_table extends JPanel{
                 {4, philips.getName(), user.getOwnedStockCount(philips), user.getBuyingPrice(philips),
                         philips.getCurrentPrice(), user.getDifference(philips)},
                 {5, google.getName(), user.getOwnedStockCount(google), user.getBuyingPrice(google),
-                        google.getCurrentPrice(), user.getDifference(google)}
+                        google.getCurrentPrice(), user.getDifference(google)},
+                {6, amazon.getName(), user.getOwnedStockCount(amazon), user.getBuyingPrice(amazon),
+                        amazon.getCurrentPrice(), user.getDifference(amazon)},
+                {7, meta.getName(), user.getOwnedStockCount(meta), user.getBuyingPrice(meta),
+                        meta.getCurrentPrice(), user.getDifference(meta)},
+                {8, tesla.getName(), user.getOwnedStockCount(tesla), user.getBuyingPrice(tesla),
+                        tesla.getCurrentPrice(), user.getDifference(tesla)},
+                {9, Pfizer.getName(), user.getOwnedStockCount(Pfizer), user.getBuyingPrice(Pfizer),
+                        Pfizer.getCurrentPrice(), user.getDifference(Pfizer)},
+                {10, BerkshireHathaway.getName(), user.getOwnedStockCount(BerkshireHathaway), user.getBuyingPrice(BerkshireHathaway),
+                        BerkshireHathaway.getCurrentPrice(), user.getDifference(BerkshireHathaway)},
+                {11, JPMorganChase.getName(), user.getOwnedStockCount(JPMorganChase), user.getBuyingPrice(JPMorganChase),
+                        JPMorganChase.getCurrentPrice(), user.getDifference(JPMorganChase)},
+                {12, GoldmanSachs.getName(), user.getOwnedStockCount(GoldmanSachs), user.getBuyingPrice(GoldmanSachs),
+                        GoldmanSachs.getCurrentPrice(), user.getDifference(GoldmanSachs)},
+                {13, Nestlé.getName(), user.getOwnedStockCount(Nestlé), user.getBuyingPrice(Nestlé),
+                        Nestlé.getCurrentPrice(), user.getDifference(Nestlé)},
+                {14, ExxonMobil.getName(), user.getOwnedStockCount(ExxonMobil), user.getBuyingPrice(ExxonMobil),
+                        ExxonMobil.getCurrentPrice(), user.getDifference(ExxonMobil)},
+                {15, Toyota.getName(), user.getOwnedStockCount(Toyota), user.getBuyingPrice(Toyota),
+                        Toyota.getCurrentPrice(), user.getDifference(Toyota)},
+                {16, Volkswagen.getName(), user.getOwnedStockCount(Volkswagen), user.getBuyingPrice(Volkswagen),
+                        Volkswagen.getCurrentPrice(), user.getDifference(Volkswagen)},
+                {17, Walmart.getName(), user.getOwnedStockCount(Walmart), user.getBuyingPrice(Walmart),
+                        Walmart.getCurrentPrice(), user.getDifference(Walmart)},
+                {18, IBM.getName(), user.getOwnedStockCount(IBM), user.getBuyingPrice(IBM),
+                        IBM.getCurrentPrice(), user.getDifference(IBM)},
+                {19, Intel.getName(), user.getOwnedStockCount(Intel), user.getBuyingPrice(Intel),
+                        Intel.getCurrentPrice(), user.getDifference(Intel)},
+                {20, Samsung.getName(), user.getOwnedStockCount(Samsung), user.getBuyingPrice(Samsung),
+                        Samsung.getCurrentPrice(), user.getDifference(Samsung)},
+
         };
     }
 
 
     private void updateTableData() {
         for (int i = 0; i < tableModel.getRowCount(); i++) {
+            // Update each row with the latest stock data
             String stockName = (String) tableModel.getValueAt(i, 1);
             updateRow(i,Stock.getInstance(stockName));
         }
@@ -93,6 +125,7 @@ public class PortFolio_table extends JPanel{
         tableModel.setValueAt(user.getBuyingPrice(stock), row, 3);
         tableModel.setValueAt(stock.getCurrentPrice(), row, 4);
         tableModel.setValueAt(user.getDifference(stock), row, 5);
+        tableModel.setValueAt(user.getUnrealizedProfit(stock), row, 6);
     }
 
     public JPanel getPortfoliotable(){

@@ -39,7 +39,7 @@ public class SimpleLoginSystem {
 
                 JOptionPane.showMessageDialog(loginFrame, "Correct Password!");
                 loginFrame.dispose();
-                Stocks start=new Stocks();
+                Stocks start=new Stocks();  
             } else {
                 JOptionPane.showMessageDialog(loginFrame, "Wrong Username/Password.");
             }
