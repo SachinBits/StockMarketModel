@@ -5,10 +5,11 @@ import java.util.HashMap;
 
 class StockDetails {
     public int quantity;
-    public double price;
+    public double price,lastprice;
     StockDetails(int quantity, double price) {
         this.quantity = quantity;
         this.price = price;
+        this.lastprice = price;
     }
 }
 
@@ -52,6 +53,7 @@ public class User {
             } else {
                 ownedStocks.put(stock, new StockDetails(amount, stock.getCurrentPrice()*amount));
             }
+            ownedStocks.get(stock).lastprice = stock.getCurrentPrice();
             return true;
         }
     }
@@ -102,7 +104,8 @@ public class User {
 
     public double getBuyingPrice(Stock stock) {
         try {
-            return ownedStocks.get(stock).price;
+            //return ownedStocks.get(stock).price;
+            return  ownedStocks.get(stock).lastprice;
         }
         catch (Exception e) {
             return 0;
@@ -111,7 +114,16 @@ public class User {
 
     public double getDifference(Stock stock) {
         try {
-            return -getBuyingPrice(stock)+stock.getCurrentPrice()*getOwnedStockCount(stock);
+            return -(ownedStocks.get(stock).lastprice-stock.getCurrentPrice());
+        }
+        catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public double getUnrealizedProfit(Stock stock) {
+        try {
+            return -ownedStocks.get(stock).price+stock.getCurrentPrice()*getOwnedStockCount(stock);
         }
         catch (Exception e) {
             return 0;

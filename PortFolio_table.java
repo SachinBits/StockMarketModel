@@ -18,7 +18,7 @@ public class PortFolio_table extends JPanel{
 
     public PortFolio_table() {
 
-        String[] columns = {"ID", "Stock", "Owned Stock", "Buying Price", "Current Price", "Difference"};
+        String[] columns = {"ID", "Stock", "Owned Stock", "Buying Price", "Current Price","Difference", "Unrealized Profit"};
 
 
         tableModel = new DefaultTableModel(getdata(), columns) {
@@ -94,6 +94,7 @@ public class PortFolio_table extends JPanel{
         tableModel.setValueAt(user.getBuyingPrice(stock), row, 3);
         tableModel.setValueAt(stock.getCurrentPrice(), row, 4);
         tableModel.setValueAt(user.getDifference(stock), row, 5);
+        tableModel.setValueAt(user.getUnrealizedProfit(stock), row, 6);
     }
 
     public JPanel getPortfoliotable(){
