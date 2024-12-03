@@ -1,3 +1,5 @@
+package App;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -33,7 +35,11 @@ public class SimpleLoginSystem {
 
             // Check if the entered credentials match the pre-defined ones
             if (enteredUsername.equals(PREDEFINED_USERNAME) && enteredPassword.equals(PREDEFINED_PASSWORD)) {
+
+
                 JOptionPane.showMessageDialog(loginFrame, "Correct Password!");
+                loginFrame.dispose();
+                Stocks start=new Stocks();  
             } else {
                 JOptionPane.showMessageDialog(loginFrame, "Wrong Username/Password.");
             }

@@ -4,9 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Stocks{
+    static JFrame Main;
 
-    public static void main(String... args) {
-        JFrame Main=new JFrame();
+    public Stocks() {
+        Main=new JFrame();
         Main.setResizable(true);
         JPanel f1=new JPanel();
         JPanel f2= new JPanel();
@@ -45,5 +46,8 @@ public class Stocks{
 
         Main.add(tabbedpane);
         Main.setVisible(true);
+    }
+    public void getFrame(){
+        new Stocks();
     }
 }

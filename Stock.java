@@ -54,7 +54,7 @@ public class Stock {
     int o=0;
     public void createnews(double priceChange){
         o++;
-        if(o>2) {
+        if(o>3) {
             if (priceChange > 0.2) {
                 Random_News randomNews = new Random_News();
                 randomNews.positive_news(name);
