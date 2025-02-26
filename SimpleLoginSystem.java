@@ -1,4 +1,4 @@
-package App;
+package App; // This is the main java file, you can run the code from here.
 
 import javax.swing.*;
 import java.awt.*;
